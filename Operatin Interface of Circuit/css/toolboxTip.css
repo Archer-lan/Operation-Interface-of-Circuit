@@ -1,0 +1,19 @@
+#accordion-resizer{
+    padding: 10px;
+    width: 200px;
+    height: 450px;
+}
+
+h1{
+    margin: 0px;
+    font-size: 0.8em;
+    cursor: move;
+    text-align: center;
+    line-height: 25px;
+}
+
+.tooltip{
+    cursor: default;
+    z-index: 6001;
+    margin-inside: 4px;
+}

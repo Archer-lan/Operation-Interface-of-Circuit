@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>实验操作台</title>
+        <meta charset="UTF-8">
+        <meta name="" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/codemirror.css">
+        <link rel="shortcut icon" href="img/b2.ico" type="image/x-icon"> <!-- icon-->
+        <link rel="stylesheet" href="css/toolboxTip.css">
+        <link rel="stylesheet" href="css/solarized.css">
+
+        <script type="text/javascript" src="js/codemirror/codemirror.js"></script>
+        <script type="text/javascript" src="js/codemirror/javascript.js"></script>
+        <script type="text/javascript" src="js/lib/jQuery.js"></script>
+        <script type="text/javascript" src="js/lib/jQuery101.js"></script>
+        <script type="text/javascript" src="js/lib/d3.js"></script>
+        <script type="text/javascript" src="js/lib/d3.min.js"></script>
+
+        <script type="text/javascript" src="js/components/80x86.js"></script>
+        <script type="text/javascript" src="js/components/8255A.js"></script>
+        <script type="text/javascript" src="js/components/8253A.js"></script>
+        <script type="text/javascript" src="js/components/8259.js"></script>
+        <script type="text/javascript" src="js/components/74LS138.js"></script>
+        <script type="text/javascript" src="js/components/74LS139.js"></script>
+        <script type="text/javascript" src="js/components/VCC.js"></script>
+        <script type="text/javascript" src="js/components/GROUND.js"></script>
+        <script type="text/javascript" src="js/components/Led_green.js"></script>
+        <script type="text/javascript" src="js/components/Led_red.js"></script>
+        <script type="text/javascript" src="js/components/Led_yellow.js"></script>
+        <script type="text/javascript" src="js/components/74LS373.js"></script>
+        <script type="text/javascript" src="js/components/Resistor_10.js"></script>
+
+        <script type="text/javascript" src="js/cal-point.js"></script>
+        <script type="text/javascript" src="js/Astar.js"></script>
+        <script type="text/javascript" src="js/toolbar.js"></script>
+        <script type="text/javascript" src="js/circuit.js"></script>
+        <script type="text/javascript" src="js/toolbox.js"></script>
+        <script type="text/javascript" src="js/rightbox.js"></script>
+        <script>
+            $(document).ready(function (){
+                document.onselectstart = function (){
+                    return false;
+                };
+                mytoolbox = new toolbox();
+                mycircuit= new Circuit();
+            });
+        </script>
+    </head>
+    <body>
+        <div id="pointarray"></div>
+        <!--顶部header栏-->
+        <div id="menu">
+            <ul id="navmenu">
+                <li><a href="#">文件</a>
+                   <ul>
+                        <li><a href="#" id="newfile" onclick="creatPoint(100)">新建</a></li>
+                        <li><a href="#" id="open" onclick="findPath(14,6,14,10,100,16)">打开</a></li>
+                        <li><a href="#" id="save" onclick="getCode()">保存</a></li>
+                        <li><a href="#" id="setting" onclick="creatTable(4,4)">页面设置</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">编辑</a>
+                    <ul>
+                        <li><a href="#" id="selectall">全选</a></li>
+                        <li><a href="#" id="delete">删除</a></li>
+                        <li><a href="#" id="copy">复制</a></li>
+                        <li><a href="#" id="cut">剪切</a></li>
+                        <li><a href="#" id="paste">粘贴</a></li>
+                        <li><a href="#" id="revocation">撤销</a></li>
+                        <li><a href="#" id="recover">恢复</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">视图</a>
+                    <ul>
+                        <li><a href="#" id="appearance">外观</a></li>
+                        <li><a href="#" id="displaywindow">显示窗口</a></li>
+                        <li><a href="#" id="amplification">放大</a></li>
+                        <li><a href="#" id="shrink">缩小</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">执行</a>
+                    <ul>
+                        <li><a href="#" id="run">运行</a></li>
+                        <li><a href="#" id="pause">暂停</a></li>
+                        <li><a href="#" id="stop">终止</a></li>
+                        <li><a href="#" id="debug">调试</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">帮助</a>
+                    <ul>
+                        <li><a href="#" >操作手册</a></li>
+                        <li><a href="#" >开发人员</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!--快捷方式栏-->
+        <div id="tools">
+             <ul>
+                 <li>
+                     <button><img src="img/direction-left.svg" class="img"></button>
+                 </li>
+                 <li>
+                     <button><img src="img/direction-right.svg" class="img"></button>
+                 </li>
+                 <li>
+                     <button><img src="img/minus-bold.svg" class="img"></button>
+                 </li>
+                 <li>
+                     <button><img src="img/add-bold.svg" class="img"></button>
+                 </li>
+                 <li>
+                     <button><img src="img/play.svg" class="img"></button>
+                 </li>
+                 <li>
+                     <button><img src="img/error.svg" class="img"></button>
+                 </li>
+             </ul>
+        </div>
+        <div id="toolbox">
+            <button id="leftbtn"><img src="img/arrow-right-filling.svg" class="img"></button>
+            <div id="lefttoolbox">
+                <h1 class="ui-widget-header">器件</h1>
+                <div id="accordion-resizer" class="ui-widget-content">
+                <div id="accordion">
+                    <h3>数字功能器件</h3>        
+                    <div>
+                        <ul>                
+                            <li class ="tooltip">80x86</li>
+                            <li class ="tooltip">8253A</li>
+                            <li class ="tooltip">8259</li>
+                            <li class ="tooltip">74LS138</li>
+                            <li class ="tooltip">74LS139</li>
+                            <li class ="tooltip">74LS245</li>
+                            <li class ="tooltip">74LS175</li>
+                            <li class ="tooltip">74LS174</li>                
+                            <li class ="tooltip">74LS273</li>
+                            <li class ="tooltip">74LS181</li>
+                            <li class ="tooltip">74LS373</li>
+                            <li class ="tooltip">74LS163</li>
+                        </ul>       
+                    </div>        
+                    <h3>逻辑门电路</h3>        
+                    <div>       
+                        <ul>                
+                            <li class ="tooltip">ANDgate</li>                
+                            <li class ="tooltip">ORgate</li>                
+                            <li class ="tooltip">NOTgate</li>
+                            <li class ="tooltip">NANDgate</li>  
+                            <li class ="tooltip">XORgate</li>   
+                            <li class ="tooltip">Triplegate</li>                            
+                        </ul>    
+                    </div>  
+                    <h3>基本元件</h3>        
+                    <div>                       
+                        <ul>
+                            <li class ="tooltip">VCC</li>
+                            <li class ="tooltip">GROUND</li>
+                            <li class ="tooltip">Switch</li>
+                            <li class ="tooltip">Resistor_10</li>
+                            <li class ="tooltip">Led_green</li>
+                            <li class ="tooltip">Led_red</li>
+                            <li class ="tooltip">Led_yellow</li>
+                            <li class ="tooltip">SinglePulse</li>   
+                            <li class ="tooltip">ContinuousPulse</li>                                  
+                        </ul>        
+                    </div>        
+                    <h3>虚拟组件</h3>        
+                    <div>                       
+                        <ul>                
+                            <li class ="tooltip">EPROM2716C3</li>    
+                            <li class ="tooltip">EPROM2716C4</li>            
+                            <li class ="tooltip">SequeTimer</li>
+                            <li class ="tooltip">BUS</li>                     
+                        </ul>        
+                    </div>                    
+                </div>
+                </div>
+            </div>
+            <button id="bottombtn"><img src="img/arrow-up-filling.svg" class="img"></button>
+            <div id="bottomtoolbox">
+                <textarea id="code" name="code"></textarea>
+            </div>
+            <button id="rightbtn"><img src="img/arrow-left-filling.svg" class="img"></button>
+            <div id="righttoolbox">
+                <div id="rightBox1"></div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" src="js/exp-point.js"></script>
+</html>

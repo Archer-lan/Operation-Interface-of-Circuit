@@ -1,0 +1,267 @@
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img { margin:0; padding:0; }
+fieldset, img,input,button { border:none; padding:0;margin:0;outline-style:none; }  /*去掉边框、去掉轮廓（比如输入框外面的蓝边框）*/
+ul, ol {
+    list-style: none;
+}
+input { padding-top:0; padding-bottom:0; font-family: "SimSun","宋体";}  /*字体一般是指定这两个*/
+select, input { vertical-align:middle;}
+select, input, textarea { font-size:12px; margin:0; }
+textarea { resize:none; } /*禁止文本输入框在右下角拖拽（因为拖动后会调整输入框大小）*/
+img {border:0;    vertical-align:middle; }  /* 去掉图片底侧默认的3像素空白缝隙*/
+table { border-collapse:collapse; }
+a {color:#666; text-decoration:none; }  /*去掉超链接的下划线*/
+button{color: #666666}
+a:hover{color:rgb(255,255,255);} /*鼠标悬停时的颜色*/
+h1,h2,h3,h4,h5,h6 {text-decoration:none;font-weight:normal;font-size:100%;} /*font-size:100% 的意思是：让它们和父亲一样大，避免在不同的浏览器中显示大小不一致*/
+s,i,em{font-style:normal;text-decoration:none;}  /*去掉i标签和em的斜体，取消s标签的删除线*/
+.col-red{color: #C81623!important;}
+body {
+    font: 12px/150% Arial,Verdana,"\5b8b\4f53";
+    color: #666;
+    background: #fff;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+/*start:清除浮动【推荐此方式进行清除浮动】。左浮动和右浮动都清除了，盒子刚好达到闭合的状态*/
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    *zoom: 1; /*IE/7/6*/
+}
+/*end：清除浮动*/
+/*----------------------------正文样式----------------------*/
+/*顶部header*/
+#menu{
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    height: 30px;
+    line-height: 30px;
+    background-color: #f1f1f1;
+}
+
+ul#navmenu {
+    margin: 0;
+    border: 0 none;
+    padding: 0;
+    width:100%;
+    list-style: none;
+    height:30px;
+    background: rgb(221, 219, 219);
+}
+
+ul#navmenu li {
+    margin: 0;
+    border: 0 none;
+    padding: 0;
+    float: left; /*向左浮动*/
+    display: inline;/*使其不独占一行与其他元素共用一行*/
+    list-style: none;
+    position: relative;
+    height:30px;
+}
+
+ul#navmenu ul {
+    margin: 0;
+    border: 0 none;
+    padding: 0;
+    width: 160px;
+    list-style: none;
+    display: none;
+    position: absolute;
+    top:30px;
+    left: 0;
+    z-index:6001;
+}
+
+ul#navmenu ul li {
+    float: none;
+    display: block !important;
+    display: inline;
+    height:30px;
+    line-height:30px;
+}
+
+/*根目录菜单*/
+ul#navmenu a {
+    padding: 0 24px;
+    float: none !important; /*For Opera*/
+    float: left; /*For IE*/
+    display: block;
+    color: rgb(17, 17, 17);
+    font: bold 13px Verdana, Arial,"\5b8b\4f53";
+    text-decoration: none;
+    height: auto !important;
+    height: 1%; /*For IE*/
+    line-height:30px;
+}
+/*悬浮效果*/
+ul#navmenu a:hover,
+ul#navmenu li:hover a,
+ul#navmenu li.iehover a {
+    margin:0px;
+    color: rgb(255, 255, 255);
+}
+
+/* 2级菜单样式 */
+ul#navmenu li:hover li a,
+ul#navmenu li.iehover li a {
+    float: none;
+    background:  rgb(221, 219, 219);
+    color: #333;
+    display:block;
+    border:solid 1px #fff;
+    height:30px;
+    line-height:30px;
+}
+
+/*2级菜单悬浮持续*/
+ul#navmenu li:hover li a:hover,
+ul#navmenu li:hover li:hover a,
+ul#navmenu li.iehover li a:hover,
+ul#navmenu li.iehover li.iehover a {
+    background:  rgb(221, 219, 219);
+    color: #FFF;
+    height:30px;
+    line-height:30px;
+}
+/*----------三级菜单---------备选*/
+    /* 3rd Menu */
+/*ul#navmenu li:hover li:hover li a,*/
+/*ul#navmenu li.iehover li.iehover li a {*/
+/*    background:  rgb(221, 219, 219);*/
+/*    color: #666;*/
+/*    height:30px;*/
+/*    line-height:30px;*/
+/*}*/
+/*    !*3rd Menu Hover Persistence*!*/
+/*ul#navmenu li:hover li:hover li a:hover,*/
+/*ul#navmenu li:hover li:hover li:hover a,*/
+/*ul#navmenu li.iehover li.iehover li a:hover,*/
+/*ul#navmenu li.iehover li.iehover li.iehover a {*/
+/*    background:  rgb(221, 219, 219);*/
+/*    color: #FFF;*/
+/*    height:30px;*/
+/*    line-height:30px;*/
+/*    margin:0px;*/
+/*}*/
+/*ul#navmenu ul ul,*/
+/*ul#navmenu ul ul ul {*/
+/*    display: none;*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 160px;*/
+/*}*/
+/*    !* Do Not Move - Must Come Before display:block for Gecko *!*/
+/*ul#navmenu li:hover ul ul,*/
+/*ul#navmenu li:hover ul ul ul,*/
+/*ul#navmenu li.iehover ul ul,*/
+/*ul#navmenu li.iehover ul ul ul {*/
+/*    display: none;*/
+/*}*/
+/*----------三级菜单---------备选*/
+ul#navmenu li:hover ul,
+ul#navmenu ul li:hover ul,
+ul#navmenu ul ul li:hover ul,
+ul#navmenu li.iehover ul,
+ul#navmenu ul li.iehover ul,
+ul#navmenu ul ul li.iehover ul {
+    display: block;
+}
+
+#pointarray{
+    position: absolute;
+}
+/*快捷方式栏*/
+#tools{
+    position: absolute;
+    float: left;
+    width: 100%;
+    height: 24px;
+    background-color:  rgb(239, 239, 239);
+}
+
+#tools li{
+    float: left;
+    padding: 0 15px;
+}
+
+.img{
+    width: 24px;
+}
+/*左侧拉栏*/
+#leftbtn{
+    top: 56px;/*因为tool栏浮动造成重叠，调整顶部*/
+    left: 0px;
+    position: absolute;
+    float: left;
+    width: 24px;
+    height: 120px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+#lefttoolbox {
+    position: absolute;
+    padding:10px 5px;
+    margin-top: 24px;
+    width: 214px;
+    height: auto;
+    float: left;
+    background-color: #f1f1f1;
+    background-size: 100% 100%;
+    /*display: none;*/
+}
+/*下侧拉栏*/
+#bottombtn{
+    margin: 0;
+    padding: 0;
+    left: 17%;
+    position: absolute;
+    bottom: 0px;
+    width: 120px;
+    height: 24px;
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+}
+
+#bottomtoolbox{
+    padding:0px;
+    margin:0px;
+    width:100%;
+    height:200px;
+    background-color: #f1f1f1;
+    background-size: 100% 100%;
+    position:absolute;
+    bottom:0px;
+    float: left;
+}
+/*右侧拉栏*/
+#rightbtn{
+    float: right;
+    top: 56px;
+    right: 0px;
+    height: 120px;
+    width: 24px;
+    position: absolute;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+#righttoolbox{
+    float: right;
+    margin-top: 24px;
+    padding: 0px;
+    position: absolute;
+    right:0px;
+    width: 214px;
+    height: 500px;
+    background-color: #f1f1f1;
+    background-size: 100% 100%;
+}
+
+
